@@ -1,16 +1,23 @@
-function Comic() {
+import React, {useState} from "react";
+
+function Comic({comic, deleteComic}) {
+  const [disp, setDisp] = useState(false);
+
+  function onDispClick(){
+    setDisp(!disp);
+  }
+  const detailDisplay =
+  <>
+    <h3 onClick={onDispClick}>{comic[`title`]}</h3>
+    <h4>{comic[`issue`]}</h4>
+    <button onClick={() => deleteComic(comic)}>Remove</button>
+  </>
 
   return (
     <div className="comic-item">
-
-      {/* The image should render if the details aren't displayed */}
-      <img src={"#"} alt={"Comic Issue Image"} />
-
-      {/* The details should render if the image isn't displayed */}
-      <h3>{"Title"}</h3>
-      <h4>{"Issue No."}</h4>
-      <button>Remove</button>
-
+      {
+        disp ? detailDisplay : <img src={comic[`image_url`]} alt={"Comic Issue Image"} onClick={onDispClick}/>
+      }
     </div>
   )
 
